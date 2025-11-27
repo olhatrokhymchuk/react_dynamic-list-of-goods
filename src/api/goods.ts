@@ -14,8 +14,6 @@ export function getAll(): Promise<Good[]> {
     })
     .catch(error => {
       throw error('Failed to fetch goods:', error);
-
-      return Promise.reject(error);
     });
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -9,17 +9,15 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleLoad = (loader: () => Promise<Good[]>) => {
+  const handleLoad = useCallback((loader: () => Promise<Good[]>) => {
     setLoading(true);
     setError(null);
 
     loader()
       .then(data => setGoods(data))
-      .catch(err => {
-        setError((err as Error)?.message ?? 'Something went wrong');
-      })
+      .catch(err => setError((err as Error)?.message ?? 'Something went wrong'))
       .finally(() => setLoading(false));
-  };
+  }, []);
 
   return (
     <div className="App">
