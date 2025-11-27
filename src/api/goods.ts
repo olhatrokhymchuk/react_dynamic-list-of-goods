@@ -13,7 +13,7 @@ export function getAll(): Promise<Good[]> {
       return response.json();
     })
     .catch(error => {
-      throw error('Failed to fetch goods:', error);
+      throw error;
     });
 }
 
